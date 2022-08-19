@@ -1,6 +1,7 @@
-<p>Install And Enable PHP Sodium and Grpc extension</p>
-<p>Install or enable PHP's grpc extension</p>
-<p>Install or enable PHP's sodium extension</p>
+## NOTE :
+- Install or enable PHP's sodium extension
+- Install or enable PHP's grpc extension
+- Make sure upload_file_size on php.ini is greater than 10MB
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
