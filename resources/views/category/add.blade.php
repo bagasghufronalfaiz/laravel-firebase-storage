@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title' , 'Add New Category')
+
 @section('content')
 <main class="mb-5">
 

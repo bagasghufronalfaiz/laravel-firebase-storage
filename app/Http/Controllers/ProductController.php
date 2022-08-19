@@ -16,8 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('welcome', ['products' => Product::all()]);
-        
+        return view('welcome', ['products' => Product::all()]);        
     }
 
     /**
@@ -54,7 +53,7 @@ class ProductController extends Controller
         $product = Product::create([
             'product_name' => $request->name,
             'product_slug' => $slug,
-            'price' => $request->name,
+            'price' => $request->price,
             'description' => $request->description,
         ]);
 
@@ -71,9 +70,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $product = Product::where('product_slug', $slug)->first();
+        if (empty($product)) {
+          abort(404);
+        }
+        return view('product.detail', ['product' => $product]);
     }
 
     /**
@@ -107,6 +110,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Product = Product::findOrFail($id);
+        $Product->delete();
+        return redirect()->route('home');
     }
 }

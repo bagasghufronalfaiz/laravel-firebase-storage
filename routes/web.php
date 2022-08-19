@@ -37,3 +37,7 @@ Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('c
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+
+

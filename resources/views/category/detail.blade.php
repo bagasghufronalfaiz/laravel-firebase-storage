@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title' , $category->category_name)
+
 @section('content')
 <main class="mb-5">
 
@@ -21,13 +23,6 @@
                         <img src="{{ $category->asset->path }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <div class="d-flex flex-column">
-                                <!-- category
-- id
-- category_name
-- category_slug
-- asset_id
-- created_at
-- updated_at -->
                                 <p class="card-text">
                                     <small class="text-muted"><b>Name : </b>{{ $category->category_name }}</small>
                                 </p>

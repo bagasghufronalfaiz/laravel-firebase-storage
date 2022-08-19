@@ -34,20 +34,9 @@
                                     <p class="card-text h3 fw-bolder mb-0">
                                         {{ $category->category_name }}
                                     </p>
-                                    <!-- <p class="card-text mb-0">
-                                        <small class="text-muted"><b>Name : </b>{{ $category->category_name }}</small>
-                                    </p>
-                                    <p class="card-text mb-0">
-                                        <small class="text-muted"><b>Asset Name : </b>{{ $category->asset->name }}</small>
-                                    </p> -->
                                 </div>
                                 <div>
                                     <a href="{{ route('category.show', ['id' => $category->category_slug]) }}" class="btn btn-outline-primary mr-1">Detail</a>
-                                    <!-- <form action="{{route('category.delete', ['id' => $category->id])}}" method="post" class="m-0" style="display:inline-block;">
-                                        @csrf
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Delete Asset">Delete</button>
-                                    </form> -->
                                 </div>
                             </div>
                         </div>
