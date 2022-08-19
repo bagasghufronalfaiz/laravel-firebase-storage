@@ -15,9 +15,9 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 /* Asset */
 Route::get('/asset', [AssetController::class, 'index'])->name('asset.index');
@@ -34,4 +34,6 @@ Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('c
 
 
 /* Product */
+Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');
+Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');

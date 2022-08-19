@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Asset;
-use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -16,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('welcome', ['products' => Product::all()]);
+        
     }
 
     /**
@@ -27,7 +28,6 @@ class ProductController extends Controller
     public function create()
     {
         return view('product.add', ['assets' => Asset::all()]);
-        
     }
 
     /**
@@ -39,35 +39,30 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category' => 'required|unique:App\Models\Category,category_name|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:8192',
+            'name' => 'required|unique:App\Models\Product,product_name|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'asset.*' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('category.add')->withErrors($validator);
+            return redirect()->route('product.add')->withErrors($validator);
         }
 
-        if ($request->file('asset')) {
-            // foreach ($request->file('asset') as $key => $asset) {
-                $asset = $request->file('asset');
-                $assetName = date('YmdHis') . '.' . $asset->getClientOriginalExtension();
-                $assetSize = $asset->getSize();
-                $localPath =  public_path('image/');
-                if ($asset->move($localPath, $assetName)) {
-                    $uploadedfile = fopen($localPath . $assetName, 'r');
-                    app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $assetName]);
-                    unlink($localPath . $assetName);
-                }
-                $url = "https://firebasestorage.googleapis.com/v0/b/" . env('FIREBASE_PROJECT_ID') . ".appspot.com/o/" . $assetName . "?alt=media";
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->name)));
 
-                Asset::create([
-                    'name' => $assetName,
-                    'path' => $url,
-                    'size' => $assetSize,
-                ]);
-            // }
+        $product = Product::create([
+            'product_name' => $request->name,
+            'product_slug' => $slug,
+            'price' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        foreach ($request->asset as $asset) {
+            $product->assets()->attach($asset);
         }
-        return redirect()->route('asset.index');
+
+        return redirect()->route('home');
     }
 
     /**

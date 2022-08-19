@@ -15,8 +15,11 @@ class CreateAssetsProductsTable extends Migration
     {
         Schema::create('assets_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('asset_id')->constrained('assets');
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('asset_id');
+            $table->foreignId('product_id');
+
+            $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

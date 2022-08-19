@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel - @yield('title')</title>
+    <title>Harisenin - @yield('title')</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -67,7 +67,7 @@
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand mb-0 h1" href="{{ route('home') }}">Navbar</a>
+            <a class="navbar-brand mb-0 h1 fw-bold" href="{{ route('home') }}">Harisenin</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

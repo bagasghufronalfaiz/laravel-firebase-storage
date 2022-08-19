@@ -24,27 +24,30 @@
     <div class="py-5 album bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            @foreach($categories as $category)
+                @foreach($categories as $category)
                 <div class="col">
                     <div class="card shadow-sm">
                         <img src="{{ $category->asset->path }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-column">
-                                    <p class="card-text mb-0">
+                                    <p class="card-text h3 fw-bolder mb-0">
+                                        {{ $category->category_name }}
+                                    </p>
+                                    <!-- <p class="card-text mb-0">
                                         <small class="text-muted"><b>Name : </b>{{ $category->category_name }}</small>
                                     </p>
                                     <p class="card-text mb-0">
                                         <small class="text-muted"><b>Asset Name : </b>{{ $category->asset->name }}</small>
-                                    </p>
+                                    </p> -->
                                 </div>
                                 <div>
                                     <a href="{{ route('category.show', ['id' => $category->category_slug]) }}" class="btn btn-outline-primary mr-1">Detail</a>
-                                    <form action="{{route('category.delete', ['id' => $category->id])}}" method="post" class="m-0" style="display:inline-block;">
+                                    <!-- <form action="{{route('category.delete', ['id' => $category->id])}}" method="post" class="m-0" style="display:inline-block;">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-outline-danger" data-toggle="tooltip" title="Delete Asset">Delete</button>
-                                    </form>
+                                    </form> -->
                                 </div>
                             </div>
                         </div>

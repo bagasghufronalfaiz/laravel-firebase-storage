@@ -35,7 +35,7 @@
                                         <small class="text-muted"><b>Name : </b>{{ $asset->name }}</small>
                                     </p>
                                     <p class="card-text mb-0">
-                                        <small class="text-muted"><b>Size : </b>{{ $asset->size }}</small>
+                                        <small class="text-muted"><b>Size : </b>{{ $asset->size }} bytes</small>
                                     </p>
                                 </div>
                                 <div>
