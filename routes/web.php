@@ -15,4 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::view('/category', '/category/index')->name('category-index');
+Route::view('/category/add', '/category/add')->name('category-add');
+
+
+Route::view('/product/add', '/product/add')->name('product-add');

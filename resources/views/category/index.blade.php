@@ -12,9 +12,9 @@
         <section class="text-center container ">
             <div class="row py-lg-4">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Product</h1>
+                    <h1 class="fw-light">Category</h1>
                     <p>
-                        <a href="{{ route('product-add') }}" class="btn btn-primary my-2">Add New Product</a>
+                        <a href="{{ route('category-add') }}" class="btn btn-primary my-2">Add New Category</a>
                     </p>
                 </div>
             </div>
