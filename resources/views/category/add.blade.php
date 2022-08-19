@@ -17,7 +17,8 @@
         <div class="container">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form>
+                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
                             <input type="text" class="form-control" name="category" id="category" placeholder="Category">

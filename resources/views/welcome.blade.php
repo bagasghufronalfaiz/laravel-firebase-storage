@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-<!-- @section('title' , 'Product') -->
+@section('title' , 'Product')
 
 @section('style')
 
@@ -14,7 +14,7 @@
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">Product</h1>
                     <p>
-                        <a href="{{ route('product-add') }}" class="btn btn-primary my-2">Add New Product</a>
+                        <a href="{{ route('product.add') }}" class="btn btn-primary my-2">Add New Product</a>
                     </p>
                 </div>
             </div>

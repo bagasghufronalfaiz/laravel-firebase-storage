@@ -1,3 +1,7 @@
+<p>Install And Enable PHP Sodium and Grpc extension</p>
+<p>Install or enable PHP's grpc extension</p>
+<p>Install or enable PHP's sodium extension</p>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

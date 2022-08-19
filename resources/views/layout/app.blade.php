@@ -78,7 +78,10 @@
                         <a class="nav-link" aria-current="page" href="{{ route('home') }}">Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('category-index') }}">Category</a>
+                        <a class="nav-link" href="{{ route('category.index') }}">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('asset.index') }}">Asset</a>
                     </li>
                 </ul>
             </div>
@@ -91,8 +94,9 @@
         <div class="container">
             <footer class="py-3">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Product</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Category</a></li>
+                    <li class="nav-item"><a href="{{ route('home') }}" class="nav-link px-2 text-muted">Product</a></li>
+                    <li class="nav-item"><a href="{{ route('category.index') }}" class="nav-link px-2 text-muted">Category</a></li>
+                    <li class="nav-item"><a href="{{ route('asset.index') }}" class="nav-link px-2 text-muted">Asset</a></li>
                 </ul>
                 <p class="text-center text-muted">© 2022 Bagas Ghufron Alfaiz</p>
             </footer>

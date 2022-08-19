@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('/category', '/category/index')->name('category-index');
-Route::view('/category/add', '/category/add')->name('category-add');
+/* Asset */
+Route::get('/asset', [AssetController::class, 'index'])->name('asset.index');
+Route::view('/asset/add', '/asset/add')->name('asset.add');
+Route::post('/asset/store', [AssetController::class, 'store'])->name('asset.store');
+Route::delete('/asset/{id}', [AssetController::class, 'destroy'])->name('asset.delete');
 
+/* Category */
+Route::view('/category', '/category/index')->name('category.index');
+Route::view('/category/add', '/category/add')->name('category.add');
+Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
 
-Route::view('/product/add', '/product/add')->name('product-add');
+/* Product */
+Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');
