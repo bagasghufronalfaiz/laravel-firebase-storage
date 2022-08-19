@@ -26,9 +26,12 @@ Route::post('/asset/store', [AssetController::class, 'store'])->name('asset.stor
 Route::delete('/asset/{id}', [AssetController::class, 'destroy'])->name('asset.delete');
 
 /* Category */
-Route::view('/category', '/category/index')->name('category.index');
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 Route::view('/category/add', '/category/add')->name('category.add');
 Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
+Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
 
 /* Product */
 Route::get('/product/add', [ProductController::class, 'create'])->name('product.add');

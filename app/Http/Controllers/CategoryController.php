@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\Category;
-use app\Models\Asset;
+use App\Models\Category;
+use App\Models\Asset;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('category.index', ['categories' => Category::all()]);
     }
 
     /**
@@ -36,42 +37,41 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-//         - category_name
-// - category_slug
-// - asset_id
-// - created_at
-// - updated_a
-
-// asset--
-// 'name',
-// 'path',
-// 'size',
-// 'created_at',
-// 'updated_at',
-        $image = $request->file('image');
-        $image->storeAs('public/image', $image->hashName());
-
-        $asset = Asset::create([
-            // 'name' => $image->getClientOriginalName(),
-            'name' => $image->hashName(),
-            'path' => 'public/image' . $image->hashName(),
-            'size' => $image->getSize(),
-            'created_at' => now(),
-            'updated_at' => now(),
+        $validator = Validator::make($request->all(), [
+            'category' => 'required|unique:App\Models\Category,category_name|max:255',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:8192',
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->route('category.add')->withErrors($validator);
+        }
+
+        $asset = $request->file('image');
+        $assetName = date('YmdHis') . '.' . $asset->getClientOriginalExtension();
+        $assetSize = $asset->getSize();
+        $localPath =  public_path('image/');
+        if ($asset->move($localPath, $assetName)) {
+            $uploadedfile = fopen($localPath . $assetName, 'r');
+            app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $assetName]);
+            unlink($localPath . $assetName);
+        }
+        $url = "https://firebasestorage.googleapis.com/v0/b/" . env('FIREBASE_PROJECT_ID') . ".appspot.com/o/" . $assetName . "?alt=media";
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->category)));
 
-        // dd($slug);
-
-        Category::create([
-            'image'             => $image->hashName(),
-            'category_name'     => $request->title,
-            'content'           => $request->content
-            
+        $inputedAsset = Asset::create([
+            'name' => $assetName,
+            'path' => $url,
+            'size' => $assetSize,
         ]);
 
-        // dd($file);
+        Category::create([
+            'category_name' => $request->category,
+            'category_slug' => $slug,
+            'asset_id'      => $inputedAsset->id,
+
+        ]);
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -80,9 +80,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $category = Category::where('category_slug', $slug)->first();
+        if (empty($category)) {
+          abort(404);
+        }
+        return view('category.detail', ['category' => $category]);
     }
 
     /**
@@ -116,6 +120,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        // $asset = Asset::findOrFail($category->asset_id);
+        // app('firebase.storage')->getBucket()->object($asset->name)->delete();
+        // $asset->delete();
+        $category->delete();
+        return redirect()->route('category.index');
     }
 }

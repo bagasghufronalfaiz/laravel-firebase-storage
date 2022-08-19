@@ -21,12 +21,21 @@
                         @csrf
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
-                            <input type="text" class="form-control" name="category" id="category" placeholder="Category">
+                            <input type="text" class="form-control" name="category" id="category" placeholder="Category" required>
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Category Image</label>
-                            <input class="form-control" type="file" name="image" id="image">
+                            <input class="form-control" type="file" name="image" id="image" required>
                         </div>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('category_slug');
             $table->unsignedBigInteger('asset_id');
             $table->timestamps();
-            $table->foreign('asset_id')->references('id')->on('assets');
+            $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');
         });
     }
 

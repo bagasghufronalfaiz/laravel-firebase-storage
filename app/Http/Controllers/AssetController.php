@@ -49,24 +49,22 @@ class AssetController extends Controller
             return redirect('asset/add')->withErrors($validator);
         }
 
-        if ($request->file('asset')) {
-            foreach ($request->file('asset') as $key => $asset) {
-                $assetName = date('YmdHis') . '.' . $asset->getClientOriginalExtension();
-                $assetSize = $asset->getSize();
-                $localPath =  public_path('image/');
-                if ($asset->move($localPath, $assetName)) {
-                    $uploadedfile = fopen($localPath . $assetName, 'r');
-                    app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $assetName]);
-                    unlink($localPath . $assetName);
-                }
-                $url = "https://firebasestorage.googleapis.com/v0/b/" . env('FIREBASE_PROJECT_ID') . ".appspot.com/o/" . $assetName . "?alt=media";
-
-                Asset::create([
-                    'name' => $assetName,
-                    'path' => $url,
-                    'size' => $assetSize,
-                ]);
+        foreach ($request->file('asset') as $key => $asset) {
+            $assetName = date('YmdHis') . '.' . $asset->getClientOriginalExtension();
+            $assetSize = $asset->getSize();
+            $localPath =  public_path('image/');
+            if ($asset->move($localPath, $assetName)) {
+                $uploadedfile = fopen($localPath . $assetName, 'r');
+                app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $assetName]);
+                unlink($localPath . $assetName);
             }
+            $url = "https://firebasestorage.googleapis.com/v0/b/" . env('FIREBASE_PROJECT_ID') . ".appspot.com/o/" . $assetName . "?alt=media";
+
+            Asset::create([
+                'name' => $assetName,
+                'path' => $url,
+                'size' => $assetSize,
+            ]);
         }
         return redirect()->route('asset.index');
     }
